@@ -1,0 +1,16 @@
+service: contactform-lambda
+
+provider:
+  name: aws
+  region: eu-west-2
+  runtime: nodejs16.x
+  deploymentMethod: direct
+
+functions:
+  contactform-lambda:
+    handler: index.handler
+    name: contactform-lambda
+    events:
+      - httpApi:
+          method: POST
+          path: /

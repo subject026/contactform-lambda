@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "deploy": "yarn build && serverless deploy",
+    "update": "yarn build && serverless deploy function --function contactform-lambda"
   },
   "devDependencies": {
     "serverless": "^3.22.0",
