@@ -1,1 +1,4 @@
 node_modules/
+
+# built function
+index.js
