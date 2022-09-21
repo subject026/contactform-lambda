@@ -1,13 +1,13 @@
 {
-  "name": "contactform-lambda",
+  "name": "tidy-contactform",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "invoke:local": "serverless invoke local --function contactform-lambda",
-    "deploy": "yarn build && serverless deploy",
-    "update": "yarn build && serverless deploy function --function contactform-lambda"
+    "invoke:local": "NODE_ENV=development serverless invoke local --function tidy-contactform",
+    "deploy": "NODE_ENV=production yarn build && serverless deploy",
+    "update": "yarn build && serverless deploy function --function tidy-contactform"
   },
   "devDependencies": {
     "serverless": "^3.22.0",
