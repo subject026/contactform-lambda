@@ -1,3 +1,4 @@
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import z from "zod";
 
 const FormDTO = z.object({
@@ -8,18 +9,22 @@ const FormDTO = z.object({
 
 // type TFormDTO = z.infer<typeof FormDTO>;
 
-export const handler = async (event: any) => {
+export const handler = async (
+  event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> => {
   try {
-    const formData = FormDTO.parse(event);
+    const body = event.body ? event.body : "";
+    const formData = FormDTO.parse(JSON.parse(body));
     console.log("validated formdata: ", formData);
-
     return {
       statusCode: 200,
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "http://localhost:5173",
       },
-      body: JSON.stringify({ message: "nicccce" }),
+      body: JSON.stringify({
+        message: "message sent",
+      }),
     };
   } catch (err) {
     console.log(err);
@@ -27,7 +32,7 @@ export const handler = async (event: any) => {
       statusCode: 418,
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "http://localhost:5173",
       },
       body: JSON.stringify({ error: err }),
     };
