@@ -1,4 +1,6 @@
-service: contactform-lambda
+service: tidy-contactform
+
+useDotenv: true
 
 provider:
   name: aws
@@ -7,9 +9,9 @@ provider:
   deploymentMethod: direct
 
 functions:
-  contactform-lambda:
+  tidy-contactform:
     handler: index.handler
-    name: contactform-lambda
+    name: tidy-contactform
     events:
       - httpApi:
           method: POST
