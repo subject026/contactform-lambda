@@ -7,6 +7,14 @@ provider:
   region: eu-west-2
   runtime: nodejs16.x
   deploymentMethod: direct
+  httpApi:
+    cors:
+      allowedOrigins:
+        - http://localhost:5173
+      allowedHeaders:
+        - Content-Type
+      allowedMethods:
+        - POST
 
 functions:
   tidy-contactform:
