@@ -3,15 +3,7 @@ import {
   APIGatewayProxyHandler,
   APIGatewayProxyResult,
 } from "aws-lambda";
-import z from "zod";
-
-const FormDTO = z.object({
-  name: z.string(),
-  email: z.string().email(),
-  message: z.string(),
-});
-
-// type TFormDTO = z.infer<typeof FormDTO>;
+import { FormDTO } from "./src/types";
 
 export const handler: APIGatewayProxyHandler = async (
   event: APIGatewayProxyEvent
