@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "dev": "serverless offline start",
     "invoke:local": "NODE_ENV=development yarn build && serverless invoke local --function tidy-contactform",
     "deploy": "NODE_ENV=production yarn build && serverless deploy",
     "update": "yarn build && serverless deploy function --function tidy-contactform"
