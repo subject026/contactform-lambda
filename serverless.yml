@@ -24,3 +24,7 @@ functions:
       - httpApi:
           method: POST
           path: /
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
