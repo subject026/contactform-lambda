@@ -1,0 +1,18 @@
+version: "3.3"
+services:
+  mailhog:
+    container_name: mailhog-local
+    platform: linux/x86_64
+    image: mailhog/mailhog:latest
+    restart: always
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    expose:
+      - "1025"
+      - "8025"
+    volumes:
+      - mailhog:/var/lib/mysql
+
+volumes:
+  mailhog:
