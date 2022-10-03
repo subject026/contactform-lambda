@@ -3,6 +3,7 @@ import {
   APIGatewayProxyHandler,
   APIGatewayProxyResult,
 } from "aws-lambda";
+import sendMail from "./src/sendMail";
 import { FormDTO } from "./src/types";
 
 export const handler: APIGatewayProxyHandler = async (
@@ -10,6 +11,8 @@ export const handler: APIGatewayProxyHandler = async (
 ): Promise<APIGatewayProxyResult> => {
   try {
     const formData = FormDTO.parse(JSON.parse(event.body || ""));
+
+    const sentMail = await sendMail(formData);
     return {
       statusCode: 200,
       headers: {
@@ -17,7 +20,7 @@ export const handler: APIGatewayProxyHandler = async (
       },
       body: JSON.stringify({
         message: "message sent",
-        formData,
+        sentMail,
       }),
     };
   } catch (err) {
