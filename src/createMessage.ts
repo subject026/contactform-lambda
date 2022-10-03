@@ -1,12 +1,6 @@
 import Mail from "nodemailer/lib/mailer";
+import { getConfig } from "./config";
 import { TFormDTO } from "./types";
-
-const getReceiverEmail = (): string => {
-  if (process.env.IS_OFFLINE) return "receiver@sender.com";
-  if (!process.env.RECEIVER_EMAIL)
-    throw new Error("ENV - receiver email not set");
-  return process.env.RECEIVER_EMAIL;
-};
 
 const createMessage = (formData: TFormDTO): Mail.Options => {
   const html = `
@@ -43,21 +37,19 @@ const createMessage = (formData: TFormDTO): Mail.Options => {
       .join("")}
       </div>
     `;
+  const config = getConfig();
 
   const message = {
-    from: "contactform@lewisandy.dev",
-    to: getReceiverEmail(),
+    from: config.FROM_EMAIL,
+    to: config.RECEIVER_EMAIL,
     subject: "lewisandy.dev - message received",
-    text: `Message Received
-    
-    ${Object.keys(formData)
-      .map((key) => {
-        return `${key}:
-        ${formData[key]}
-        
-        `;
-      })
-      .join("")}`,
+    text:
+      "Message Received\n\n" +
+      Object.keys(formData)
+        .map((key) => {
+          return `${key} - ${formData[key]}`;
+        })
+        .join("\n"),
     html,
   };
 
