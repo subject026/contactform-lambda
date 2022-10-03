@@ -3,6 +3,7 @@ import {
   APIGatewayProxyHandler,
   APIGatewayProxyResult,
 } from "aws-lambda";
+import { StatusCodes } from "http-status-codes";
 import sendMail from "./src/sendMail";
 import { FormDTO } from "./src/types";
 
@@ -12,21 +13,10 @@ export const handler: APIGatewayProxyHandler = async (
   try {
     const formData = FormDTO.parse(JSON.parse(event.body || ""));
 
-    const sentMail = await sendMail(formData);
-    return {
-      statusCode: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        message: "message sent",
-        sentMail,
-      }),
-    };
+    return await sendMail(formData);
   } catch (err) {
-    console.log(err);
     return {
-      statusCode: 418,
+      statusCode: StatusCodes.BAD_REQUEST,
       headers: {
         "Content-Type": "application/json",
       },
