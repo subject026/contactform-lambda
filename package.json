@@ -4,10 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "serverless offline start",
+    "dev": "NODE_ENV=development serverless offline start",
     "invoke:local": "NODE_ENV=development yarn build && serverless invoke local --function tidy-contactform",
-    "deploy": "NODE_ENV=production yarn build && serverless deploy",
-    "update": "yarn build && serverless deploy function --function tidy-contactform"
+    "deploy": "serverless deploy",
+    "update": "serverless deploy function --function tidy-contactform"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.104",
@@ -16,11 +16,11 @@
     "aws-lambda": "^1.0.7",
     "serverless": "^3.22.0",
     "serverless-offline": "^10.2.1",
+    "serverless-plugin-typescript": "^2.1.2",
     "typescript": "^4.8.3"
   },
   "dependencies": {
     "nodemailer": "^6.7.8",
-    "serverless-plugin-typescript": "^2.1.2",
     "zod": "^3.19.1"
   }
 }
